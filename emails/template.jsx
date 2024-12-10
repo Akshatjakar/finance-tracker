@@ -10,7 +10,7 @@ import {
 } from "@react-email/components";
 
 export default function EmailTemplate({
-  userName = "Piyush",
+  userName = "",
   type = "monthly-report",
   data = {},
 }) {
@@ -22,10 +22,13 @@ export default function EmailTemplate({
         <Body style={styles.body}>
           <Container style={styles.container}>
             <Heading style={styles.title}>Monthly Financial Report</Heading>
+
             <Text style={styles.text}>Hello {userName},</Text>
             <Text style={styles.text}>
               Here&rsquo;s your financial summary for {data?.month}:
             </Text>
+
+            {/* Main Stats */}
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.statLabel}>Total Income</Text>
@@ -44,6 +47,8 @@ export default function EmailTemplate({
                 </Text>
               </div>
             </Section>
+
+            {/* Category Breakdown */}
             {data?.stats?.byCategory && (
               <Section style={styles.categoryContainer}>
                 <Heading as="h2" style={styles.subtitle}>
@@ -59,6 +64,26 @@ export default function EmailTemplate({
                 )}
               </Section>
             )}
+
+            {/* AI Insights */}
+            {data?.insights && (
+              <Section style={styles.insightsContainer}>
+                <Heading as="h2" style={styles.subtitle}>
+                  Welth Insights
+                </Heading>
+                {data.insights.map((insight, index) => (
+                  <Text key={index} style={styles.insightText}>
+                    • {insight}
+                  </Text>
+                ))}
+              </Section>
+            )}
+
+            {/* Footer */}
+            <Text style={styles.footer}>
+              Thank you for using Welth. Keep tracking your finances for better
+              financial health!
+            </Text>
           </Container>
         </Body>
       </Html>
@@ -178,5 +203,26 @@ const styles = {
     color: "#1f2937",
     fontSize: "16px",
     fontWeight: "600",
+  },
+  insightsContainer: {
+    marginTop: "32px",
+    padding: "20px",
+    backgroundColor: "#f9fafb",
+    borderRadius: "5px",
+    border: "1px solid #e5e7eb",
+  },
+  insightText: {
+    color: "#4b5563",
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "8px 0",
+  },
+  footer: {
+    color: "#6b7280",
+    fontSize: "14px",
+    textAlign: "center",
+    marginTop: "32px",
+    paddingTop: "16px",
+    borderTop: "1px solid #e5e7eb",
   },
 };

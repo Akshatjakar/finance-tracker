@@ -171,6 +171,7 @@ export function NoPaginationTransactionTable({ transactions }) {
     setSearchTerm("");
     setTypeFilter("");
     setRecurringFilter("");
+    setSelectedIds([]);
   };
 
   return (
