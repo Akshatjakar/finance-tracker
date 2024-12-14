@@ -26,22 +26,16 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Budget Progress */}
-      {defaultAccount && (
-        <Suspense fallback={<div>Loading budget...</div>}>
-          <BudgetProgress
-            initialBudget={budgetData?.budget}
-            currentExpenses={budgetData?.currentExpenses || 0}
-          />
-        </Suspense>
-      )}
+      <BudgetProgress
+        initialBudget={budgetData?.budget}
+        currentExpenses={budgetData?.currentExpenses || 0}
+      />
 
       {/* Dashboard Overview */}
-      <Suspense fallback={<div>Loading overview...</div>}>
-        <DashboardOverview
-          accounts={accounts}
-          transactions={transactions || []}
-        />
-      </Suspense>
+      <DashboardOverview
+        accounts={accounts}
+        transactions={transactions || []}
+      />
 
       {/* Accounts Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
