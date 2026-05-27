@@ -223,7 +223,7 @@ export async function getUserTransactions(query = {}) {
 // ✅ FIXED: accepts plain object { base64, mimeType } instead of File instance
 export async function scanReceipt(fileData) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `
       Analyze this receipt image and extract the following information in JSON format:
