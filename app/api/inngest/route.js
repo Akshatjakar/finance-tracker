@@ -1,19 +1,18 @@
 import { serve } from "inngest/next";
-
 import { inngest } from "@/lib/inngest/client";
-import {
-  checkBudgetAlerts,
-  generateMonthlyReports,
-  processRecurringTransaction,
-  triggerRecurringTransactions,
-} from "@/lib/inngest/function";
 
-export const { GET, POST, PUT } = serve({
+export const runtime = "nodejs";
+
+export const { GET, POST } = serve({
   client: inngest,
-  functions: [
-    processRecurringTransaction,
-    triggerRecurringTransactions,
-    generateMonthlyReports,
-    checkBudgetAlerts,
-  ],
+  functions: async () => {
+    const mod = await import("@/lib/inngest/function");
+
+    return [
+      mod.processRecurringTransaction,
+      mod.triggerRecurringTransactions,
+      mod.generateMonthlyReports,
+      mod.checkBudgetAlerts,
+    ];
+  },
 });
